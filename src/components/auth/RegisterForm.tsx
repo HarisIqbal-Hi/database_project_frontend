@@ -36,6 +36,7 @@ export default function RegisterForm() {
         if (!name) newErrors.name = "Name is required";
         if (!userName) newErrors.userName = "User name is required";
         else if (userName.length < 2) newErrors.userName = "Username must be at least 5 characters";
+        else if (userName.length > 8) newErrors.userName = "Username must be less then 8 characters";
         if (!email) newErrors.email = "Email is required";
         else if (!/\S+@\S+\.\S+/.test(email)) newErrors.email = "Invalid email address";
         if (!password) newErrors.password = "Password is required";

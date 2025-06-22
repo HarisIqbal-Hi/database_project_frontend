@@ -1,41 +1,59 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
 import styles from "./EditProfileDialog.module.scss";
-import {EditProfileDialogProps} from "@/components/user/types";
+import {EditProfileDialogProps, User} from "@/components/user/types";
 import FloatingInput from "@/components/ui/FloatingInput";
 import Image from "next/image";
 import FloatingSelect from "@/components/ui/FloatingSelect";
+import FloatingMultiSelect from "@/components/ui/FloatingSelect";
+import {useUpdateUserProfile} from "@/features/user/hooks/useUpdateUserProfile";
+import {useQueryClient} from "@tanstack/react-query";
+
+const INTEREST_OPTIONS = [
+    {value: "museum", label: "Museum"},
+    {value: "restaurant", label: "Restaurant"},
+    {value: "theatre", label: "Theatre"},
+    {value: "artwork", label: "Artwork"},
+    {value: "hotel", label: "Hotel"},
+    {value: "guest_house", label: "Guest House"},
+    {value: "gallery", label: "Gallery"},
+];
 
 export default function EditProfileDialog({open, onClose, user}: EditProfileDialogProps) {
+    const reactQueryClient = useQueryClient();
+    const [isLocationUpdated, setIsLocationUpdated] = useState(false);
     const [userState, setUserState] = useState({
         username: user.username || "",
         name: user.full_name || "",
         email: user.email || "",
         interests: user.interests || [],
-        location: user.location || null,
+        location: user.location || undefined,
     });
+    const { mutate: updateUser, isPending, isSuccess, error } = useUpdateUserProfile();
     const [loadingLoc, setLoadingLoc] = useState(false);
 
     useEffect(() => {
         if (open && user) {
-            console.log("user open", open);
+            console.log("user open", user);
             setUserState({
                 name: user.full_name || "",
                 username: user.username || "",
                 email: user.email || "",
                 interests: user.interests || [],
-                location: user.location || null,
+                location: user.location || undefined,
             });
         }
     }, [open, user]);
 
     const handleGetLocation = () => {
         setLoadingLoc(true);
+        setIsLocationUpdated(false)
         navigator.geolocation.getCurrentPosition(
             pos => {
                 setUserState(prev => ({
                     ...prev,
                     location: {lat: pos.coords.latitude, lng: pos.coords.longitude},
                 }));
+                setIsLocationUpdated(true);
                 setLoadingLoc(false);
             },
             () => setLoadingLoc(false)
@@ -49,14 +67,46 @@ export default function EditProfileDialog({open, onClose, user}: EditProfileDial
             [name]: value,
         }));
     };
-
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // TODO: submit API call with userState data
-        console.log("submit", user);
-        onClose();
+        console.log("user update", userState);
+        updateUser(userState, {
+            onSuccess: (data) => {
+                console.log("success",data);
+                onClose();
+                reactQueryClient.invalidateQueries({ queryKey: ["user", "profile"] });
+                // Optionally show a success toast/message
+            },
+            onError: (err: any) => {
+                alert(err?.info?.error || "Failed to update profile");
+            },
+        });
     };
 
+    const handleChangeInterests = (newInterests: string[]) => {
+        // Enforce max 3
+        if (newInterests.length > 3) {
+            alert("You can only select up to 3 interests.");
+            // Optionally: ignore extra, or just keep first three
+            setUserState(prev => ({
+                ...prev,
+                interests: newInterests.slice(0, 3),
+            }));
+            return;
+        }
+        setUserState(prev => ({
+            ...prev,
+            interests: newInterests,
+        }));
+    };
+
+
+    const handleRemoveInterest = (interest: string) => {
+        setUserState(prev => ({
+            ...prev,
+            interests: prev.interests.filter(i => i !== interest),
+        }));
+    };
     if (!open) return null;
 
     return (
@@ -69,17 +119,10 @@ export default function EditProfileDialog({open, onClose, user}: EditProfileDial
                     </div>
 
                 </div>
+                <h2 className={styles.user_header}>{userState.username}</h2>
                 <h2 className={styles.header}>Edit Profile</h2>
                 <div className={styles.form_dialog}>
                     <form onSubmit={handleSubmit}>
-                        <FloatingInput
-                            type="text"
-                            label="Username"
-                            name="username"
-                            value={userState.username}
-                            onChange={handleChange}
-                            required
-                        />
                         <FloatingInput
                             type="text"
                             label="Full Name"
@@ -98,41 +141,38 @@ export default function EditProfileDialog({open, onClose, user}: EditProfileDial
                         />
 
                         {/* Interests as chips */}
-                        <div className={styles.interestsRow}>
-                            {userState.interests.map((interest, i) => (
-                                <span key={i} className={styles.interestChip}>{interest}</span>
-                            ))}
-                            <FloatingSelect
-                                label="Interests"
-                                value={"handleChange"}
-                                options={[]}
-                                onChange={e => {
-
-                                }}
-                            />
-                        </div>
-
+                        <FloatingMultiSelect
+                            label="Interests"
+                            value={userState.interests}
+                            options={INTEREST_OPTIONS}
+                            onChange={handleChangeInterests}
+                            placeholder="Add interests..."
+                        />
                         <div className={styles.locationRow}>
-        <span>
-          {userState.location
-              ? `Lat: ${userState.location.lat.toFixed(4)}, Lng: ${userState.location.lng.toFixed(4)}`
-              : "No location set"}
-        </span>
                             <button
                                 type="button"
                                 onClick={handleGetLocation}
                                 disabled={loadingLoc}
-                                className={styles.locateBtn}
+                                className={styles.saveBtn}
                             >
-                                {loadingLoc ? "Locating..." : "Use My Location"}
+                                {
+                                    loadingLoc ? "Locating..." :
+                                        userState.location ? "Update My Location" : "Use My Location"
+                                }
                             </button>
+                            {
+                                isLocationUpdated &&
+                                <div className={styles.locationInfo}>
+                                    Your current location is updated successfully.
+                                </div>
+                            }
                         </div>
                         <div className={styles.actions}>
                             <button type="button" onClick={onClose} className={styles.cancelBtn}>
                                 Cancel
                             </button>
                             <button type="submit" className={styles.saveBtn}>
-                                Save Changes
+                                {isPending ? "Locating..." : "Save Changes"}
                             </button>
                         </div>
                     </form>

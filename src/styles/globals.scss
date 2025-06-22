@@ -17,3 +17,35 @@
     display: block;
   }
 }
+
+.scrollArea {
+  overflow-y: auto;
+  max-height: 78vh; // or whatever fits your design
+
+  // Scrollbar for Firefox
+  scrollbar-width: thin;
+  scrollbar-color: $ccs-orange $ccs-bg-beige;
+
+  // Scrollbar for Chrome, Edge, Safari
+  &::-webkit-scrollbar {
+    width: 9px;
+    background: $ccs-bg-beige;
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $ccs-orange;
+    border-radius: 8px;
+    border: 2px solid $ccs-bg-beige;
+    min-height: 32px;
+    transition: background 0.15s;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: $ccs-orange-deep;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: $ccs-bg-beige;
+  }
+}

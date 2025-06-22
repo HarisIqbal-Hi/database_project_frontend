@@ -30,6 +30,8 @@ export const apiFetcher = async <T = any>(
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000';
     const url = endpoint.startsWith('http') ? endpoint : baseUrl + endpoint;
 
+    console.log(url, options);
+
     const res = await fetch(url, {
         credentials: 'include',
         ...options,
