@@ -1,0 +1,93 @@
+@import "@/styles/variables.scss";
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.dialog {
+  background: $ccs-bg-beige;
+  border-radius: 2rem;
+  padding: 2.5rem 2.6rem 2rem 2.6rem;
+  min-width: 370px;
+  box-shadow: 0 8px 40px rgba(244, 162, 89, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: relative;
+}
+
+.avatarRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+  .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #f4a25928;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 70%;
+    }
+  }
+}
+.header {
+  color: $text-dark;
+  font-size: 1.65rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+
+.form_dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.cancelBtn {
+  background: none;
+  color: $text-mid;
+  border: 1.5px solid $ccs-blue-dark;
+  border-radius: 12px;
+  padding: 0.4rem 1.2rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  &:hover {
+    border-color: $ccs-orange;
+    color: $ccs-orange;
+  }
+}
+
+.saveBtn {
+  background: $ccs-orange;
+  color: #fff;
+  border-radius: 12px;
+  border: none;
+  padding: 0.45rem 1.4rem;
+  font-weight: 700;
+  font-size: 1.08rem;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(248, 169, 72, 0.13);
+  transition: background 0.17s;
+  &:hover {
+    background: $ccs-orange-deep;
+  }
+}

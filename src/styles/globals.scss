@@ -1,0 +1,19 @@
+@import './variables.scss';
+
+.form-error {
+  color: #e04b3d;
+  font-size: 0.98rem;
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+
+.icon-base {
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  svg {
+    display: block;
+  }
+}

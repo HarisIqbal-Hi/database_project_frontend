@@ -1,0 +1,37 @@
+@import '../../styles/globals.scss';
+
+$chemnitz-bg: #fff6e5;
+$chemnitz-border: #f8eccc;
+$chemnitz-dark: #274356;
+.wrapper {
+  display: flex;
+  align-items: center;
+  background: $chemnitz-bg;
+  border-radius: 18px;
+  padding: 0.8rem 1.2rem;
+  box-shadow: 0 1px 4px rgba(244,162,89,0.04);
+  border: 1px solid $chemnitz-border;
+  width: 100%;
+  max-width: 540px;
+}
+
+.icon {
+  @extend .icon-base;
+}
+
+.input {
+  border: none;
+  background: transparent;
+  font-size: 1.32rem;
+  color: $chemnitz-dark;
+  outline: none;
+  width: 100%;
+  font-family: inherit;
+
+  &::placeholder {
+    color: $chemnitz-dark;
+    opacity: 0.8;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+}

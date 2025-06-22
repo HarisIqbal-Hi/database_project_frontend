@@ -1,0 +1,12 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#F58220" stroke-width="5" fill="none">
+        <!-- Outer circle -->
+        <circle cx="50" cy="50" r="45"/>
+        <!-- Vertical line down the middle -->
+        <line x1="50" y1="95" x2="50" y2="70"/>
+        <!-- Inner 'G' and 'C' shapes -->
+        <path d="M50 30
+             a20 20 0 1 1 0 40
+             a20 20 0 1 1 0 -40" />
+    </g>
+</svg>

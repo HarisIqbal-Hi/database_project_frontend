@@ -1,0 +1,89 @@
+/* PlacesPage.module.scss */
+@import '../../styles/variables.scss';
+@import '../../styles/globals';
+
+.root {
+  background: $ccs-bg-beige;
+  min-height: 100vh;
+  font-family: 'Nunito', 'Segoe UI', Arial, sans-serif;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 2.5rem 1.5rem 2.5rem;
+  font-weight: bold;
+  font-size: 2.3rem;
+  color: #314352;
+
+  .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #f4a25928;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    img {
+      width: 70%;
+    }
+  }
+  .search_action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: transparent;
+    transition: .2s background ease-in-out;
+    border-radius: 50%;
+    cursor: pointer;
+
+    &:hover {
+
+      background: #f4a25928;
+    }
+  }
+}
+
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.icon {
+  @extend .icon-base;
+  margin-right: 0;
+}
+
+.body {
+  display: flex;
+  height: calc(100vh - 100px);
+  gap: 2rem;
+}
+
+.mapArea {
+  flex: 2.2;
+  position: relative;
+  border-radius: 2rem 2rem 0 0;
+  box-shadow: 0 4px 24px #4b6c7b18;
+  overflow: hidden;
+  margin-left: 2.5rem;
+}
+
+.sidebar {
+  flex: 1.1;
+  min-width: 350px;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #fff7db;
+  border-radius: 2rem 2rem 0 0;
+  margin-right: 2.5rem;
+}
