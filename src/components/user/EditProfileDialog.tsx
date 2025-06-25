@@ -7,6 +7,8 @@ import FloatingSelect from "@/components/ui/FloatingSelect";
 import FloatingMultiSelect from "@/components/ui/FloatingSelect";
 import {useUpdateUserProfile} from "@/features/user/hooks/useUpdateUserProfile";
 import {useQueryClient} from "@tanstack/react-query";
+import Tabs from "@/components/ui/Tabs";
+import AchievementsTab from "@/components/user/AchievementsTab";
 
 const INTEREST_OPTIONS = [
     {value: "museum", label: "Museum"},
@@ -18,7 +20,13 @@ const INTEREST_OPTIONS = [
     {value: "gallery", label: "Gallery"},
 ];
 
+const TABS = [
+    { label: "Profile", value: "profile" },
+    { label: "Achievements", value: "achievements" },
+];
+
 export default function EditProfileDialog({open, onClose, user}: EditProfileDialogProps) {
+    const [tab, setTab] = useState("profile");
     const reactQueryClient = useQueryClient();
     const [isLocationUpdated, setIsLocationUpdated] = useState(false);
     const [userState, setUserState] = useState({
@@ -117,66 +125,78 @@ export default function EditProfileDialog({open, onClose, user}: EditProfileDial
                         <Image className={`${styles.icon}`} src="/icons/user.svg" alt="search" width={80}
                                height={80}/>
                     </div>
-
                 </div>
                 <h2 className={styles.user_header}>{userState.username}</h2>
-                <h2 className={styles.header}>Edit Profile</h2>
-                <div className={styles.form_dialog}>
-                    <form onSubmit={handleSubmit}>
-                        <FloatingInput
-                            type="text"
-                            label="Full Name"
-                            name="name"
-                            value={userState.name}
-                            onChange={handleChange}
-                            required
-                        />
-                        <FloatingInput
-                            type="email"
-                            label="Email"
-                            name="email"
-                            value={userState.email}
-                            onChange={handleChange}
-                            required
-                        />
+                <Tabs tabs={TABS} value={tab} onChange={val => setTab(val as string)} />
+                {
+                    tab === "profile" &&
+                    <>
+                        <h2 className={styles.header}>Edit Profile</h2>
+                        <div className={styles.form_dialog}>
+                            <form onSubmit={handleSubmit}>
+                                <FloatingInput
+                                    type="text"
+                                    label="Full Name"
+                                    name="name"
+                                    value={userState.name}
+                                    onChange={handleChange}
+                                    required
+                                />
+                                <FloatingInput
+                                    type="email"
+                                    label="Email"
+                                    name="email"
+                                    value={userState.email}
+                                    onChange={handleChange}
+                                    required
+                                />
 
-                        {/* Interests as chips */}
-                        <FloatingMultiSelect
-                            label="Interests"
-                            value={userState.interests}
-                            options={INTEREST_OPTIONS}
-                            onChange={handleChangeInterests}
-                            placeholder="Add interests..."
-                        />
-                        <div className={styles.locationRow}>
-                            <button
-                                type="button"
-                                onClick={handleGetLocation}
-                                disabled={loadingLoc}
-                                className={styles.saveBtn}
-                            >
-                                {
-                                    loadingLoc ? "Locating..." :
-                                        userState.location ? "Update My Location" : "Use My Location"
-                                }
-                            </button>
-                            {
-                                isLocationUpdated &&
-                                <div className={styles.locationInfo}>
-                                    Your current location is updated successfully.
+                                {/* Interests as chips */}
+                                <FloatingMultiSelect
+                                    label="Interests"
+                                    value={userState.interests}
+                                    options={INTEREST_OPTIONS}
+                                    onChange={handleChangeInterests}
+                                    placeholder="Add interests..."
+                                />
+                                <div className={styles.locationRow}>
+                                    <button
+                                        type="button"
+                                        onClick={handleGetLocation}
+                                        disabled={loadingLoc}
+                                        className={styles.saveBtn}
+                                    >
+                                        {
+                                            loadingLoc ? "Locating..." :
+                                                userState.location ? "Update My Location" : "Use My Location"
+                                        }
+                                    </button>
+                                    {
+                                        isLocationUpdated &&
+                                        <div className={styles.locationInfo}>
+                                            Your current location is updated successfully.
+                                        </div>
+                                    }
                                 </div>
-                            }
+                                <div className={styles.actions}>
+                                    <button type="button" onClick={onClose} className={styles.cancelBtn}>
+                                        Cancel
+                                    </button>
+                                    <button type="submit" className={styles.saveBtn}>
+                                        {isPending ? "Locating..." : "Save Changes"}
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                        <div className={styles.actions}>
-                            <button type="button" onClick={onClose} className={styles.cancelBtn}>
-                                Cancel
-                            </button>
-                            <button type="submit" className={styles.saveBtn}>
-                                {isPending ? "Locating..." : "Save Changes"}
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                    </>
+                }
+
+                {
+                    tab === "achievements" &&
+                    <>
+                        <AchievementsTab/>
+                    </>
+                }
 
             </div>
         </div>

@@ -1,5 +1,7 @@
 // src/utils/apiFetcher.ts
 
+import {triggerGlobalError} from "@/utils/errorBus";
+
 export class ApiError extends Error {
     status: number;
     info?: any;
@@ -51,12 +53,17 @@ export const apiFetcher = async <T = any>(
 
     if (!res.ok) {
         // If unauthorized, try refresh and retry original call ONCE
+        console.log("login", res.status === 401 && !_retry)
         if (res.status === 401 && !_retry) {
             try {
                 await refreshToken();
                 // Try original request again (with _retry = true)
                 return apiFetcher<T>(endpoint, options, true);
             } catch (e) {
+                if (!endpoint.includes("/auth")) {
+                    console.log("info")
+                    triggerGlobalError("session")
+                }
                 throw new ApiError('Unauthorized: Refresh failed', res.status, data);
             }
         }

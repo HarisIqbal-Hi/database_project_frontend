@@ -1,13 +1,13 @@
 // /src/types/place.ts
 export interface Place {
-    id: string;
+    id: number;
     name: string;
-    description: string;
     address: string;
     category_id: string;
     category: string;
-    imageUrl?: string;
     latitude: number;
     longitude: number;
+    website?: string;
+    properties?: Record<string, any>; // <-- This makes it flexible for any properties
     // Add other fields if present in backend
 }

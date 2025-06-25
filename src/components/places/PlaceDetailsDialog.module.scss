@@ -1,0 +1,112 @@
+@import '../../styles/globals.scss';
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: #0006;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.visited_btn {
+  margin-top: 1rem;
+  @extend .primary_button;
+}
+.dialog {
+  background: #f8e9c1;
+  border-radius: 2.2em;
+  box-shadow: 0 4px 48px #4b6c7b44;
+  padding: 2.6em 2.2em 1.6em;
+  min-width: 400px;
+  max-width: 540px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 1.5em;
+  right: 2em;
+  background: none;
+  border: none;
+  font-size: 2.2rem;
+  color: #a88953;
+  cursor: pointer;
+}
+
+.placeIcon {
+  margin-bottom: 0.7em;
+}
+
+.placeName {
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: $ccs-blue-dark;
+  margin-bottom: 0.3em;
+}
+
+.placeCategory {
+  color: $ccs-orange;
+  font-size: 1.22rem;
+  font-weight: 500;
+}
+
+.placeAddress , .website {
+  font-size: 1.28rem;
+  color: $ccs-blue-dark;
+  margin-bottom: 1em;
+}
+
+.website {
+  margin-top: 1rem;
+  color: #4b6c7b;
+  font-size: 1.05em;
+  word-break: break-all;
+  white-space: pre-wrap;
+  line-height: 1.3;
+  max-width: 95%;
+  display: block;
+}
+
+.information {
+  font-size: 1.28rem;
+  color: $ccs-blue-dark;
+  margin-bottom: 1em;
+  text-align:left;
+}
+
+
+.visited_txt {
+  font-size: 1.28rem;
+  color: $ccs-orange-deep;
+}
+
+.placeDesc {
+  color: $ccs-blue-dark;
+  font-size: 1.16rem;
+  margin-bottom: 1.1em;
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+  gap: 0.3em;
+  margin-bottom: 1.1em;
+}
+
+.star {
+  color: $ccs-orange;
+  font-size: 2.2em;
+}
+
+.dialogFooterImage {
+  width: 100%;
+  border-radius: 1.1em;
+  margin-top: 1.1em;
+  object-fit: cover;
+  max-height: 90px;
+}
+
+

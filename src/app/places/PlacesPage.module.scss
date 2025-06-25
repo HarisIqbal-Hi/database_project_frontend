@@ -87,3 +87,17 @@
   border-radius: 2rem 2rem 0 0;
   margin-right: 2.5rem;
 }
+.spinner {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #F8A948; // match your color schema
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+}

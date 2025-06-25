@@ -34,12 +34,8 @@ export default function LoginForm() {
             {
                 onSuccess: (data) => {
                     router.push("/places")
-                    // Example: redirect to home, or show toast
-                    console.log("data", data);
-                    // Or toast.success('Welcome back!');
                 },
                 onError: (error: Error) => {
-                    // Show custom error (from thrown Error or backend)
                     setMessage(error.message);
                     console.error(error);
                 },

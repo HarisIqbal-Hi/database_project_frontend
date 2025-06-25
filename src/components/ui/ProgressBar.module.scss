@@ -1,0 +1,29 @@
+.wrapper {
+  width: 100%;
+  max-width: 380px;
+  margin: 1.5rem auto 0 auto;
+  text-align: center;
+}
+
+.label {
+  font-size: 1.13rem;
+  color: #4b6c7b; // Use your color schema if needed
+  margin-bottom: 0.7rem;
+  font-family: inherit;
+}
+
+.barBg {
+  background: #e0e6e6;
+  height: .8rem;
+  border-radius: 22px;
+  width: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.barFill {
+  background: #8fa3a7;
+  height: 100%;
+  border-radius: 22px;
+  transition: width 0.4s cubic-bezier(.4,0,.2,1);
+}

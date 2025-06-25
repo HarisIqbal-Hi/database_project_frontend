@@ -1,0 +1,30 @@
+@import '../styles/variables';
+@import '../styles/globals';
+.overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.dialog {
+  background: $ccs-bg-beige;
+  color: $text-dark;
+  border-radius: 10px;
+  padding: 2rem;
+  max-width: 350px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.14);
+}
+
+.dialog h2 {
+  margin-top: 0;
+}
+
+.dialog button {
+ @extend .primary_button
+}

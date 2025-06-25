@@ -1,0 +1,23 @@
+@import '../../styles/variables.scss';
+@import '../../styles/globals';
+
+.button {
+  @extend .primary_button;
+  font-size: 1rem;
+  padding: .5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: .5rem;
+  .icon {
+    fill: $ccs-blue-shadow;
+    display: inline-block;
+    margin-left: 0.7em;
+    font-size: 1.15em;
+    transition: transform 0.14s;
+  }
+}
+
+/*
+
+*/

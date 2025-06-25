@@ -26,3 +26,9 @@ export async function fetchUserProfile(): Promise<{ user: User }> {
     // Adjust the endpoint to match your backend route
     return apiFetcher<{ user: User }>("/api/user/me");
 }
+
+export async function logout() {
+    return apiFetcher("/api/auth/logout", {
+        method: "POST",
+    });
+}

@@ -1,0 +1,19 @@
+.favoriteBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.22rem;
+  color: #f8a948;
+  transition: color 0.15s;
+  outline: none;
+
+  &:hover,
+  &:focus {
+    color: #e4812c;
+  }
+
+  &.active {
+    color: #e4812c; // Deep orange for selected
+    text-shadow: 0 2px 8px #f8a94833;
+  }
+}

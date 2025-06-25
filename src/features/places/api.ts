@@ -8,7 +8,7 @@ export async function fetchPlaces(params?: { categoryId?: string; search?: strin
 
     const url = `/api/places${searchParams.toString() ? '?' + searchParams.toString() : ''}`;
     const data = await apiFetcher<{ places: Place[] }>(url);
-    console.log(data)
+    console.log("places data",data.places[0].properties)
     return data.places
 }
 

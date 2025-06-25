@@ -1,4 +1,5 @@
 @import '../../styles/variables.scss';
+@import '../../styles/globals';
 
 .AuthForm-split-bg {
   display: flex;
@@ -58,26 +59,11 @@
 }
 
 .AuthForm-tabs {
-  display: flex;
-  gap: 2rem;
-  margin-bottom: 2.3rem;
-  font-size: 1.09rem;
-  font-weight: 500;
+  @extend .AuthForm-tabs;
 }
 
 .AuthForm-tab {
-  color: $ccs-blue-shadow;
-  opacity: 0.7;
-  border-bottom: 2.5px solid transparent;
-  cursor: pointer;
-  transition: all .18s;
-  padding-bottom: 3px;
-
-  &.active {
-    color: $ccs-orange-deep;
-    opacity: 1;
-    border-bottom: 2.5px solid $ccs-orange;
-  }
+  @extend .AuthForm-tab;
 }
 
 .AuthForm-title {
@@ -115,21 +101,7 @@
 }
 
 .AuthForm-btn {
-  width: 100%;
-  padding: 1.05rem;
-  border-radius: 12px;
-  background: $ccs-orange;
-  color: $ccs-blue-shadow;
-  font-size: 1.18rem;
-  font-weight: 600;
-  border: none;
-  margin-top: 0.35rem;
-  cursor: pointer;
-  transition: background .13s;
-
-  &:hover, &:focus {
-    background: darken($ccs-orange, 7%);
-  }
+  @extend .primary_button;
 }
 
 .AuthForm-brand {
